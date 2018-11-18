@@ -1,0 +1,28 @@
+{
+  "name": "blockchainplayground",
+  "version": "0.0.1",
+  "description": "darryns blockchain",
+  "main": "main.js",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dw8787878/blockChainPlayground.git"
+  },
+  "keywords": [
+    "blockchain",
+    "darryn",
+    "wu"
+  ],
+  "author": "Darryn Wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dw8787878/blockChainPlayground/issues"
+  },
+  "homepage": "https://github.com/dw8787878/blockChainPlayground#readme"
+}
