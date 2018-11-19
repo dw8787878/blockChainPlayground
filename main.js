@@ -1,17 +1,25 @@
 const SHA256 = require('crypto-js/sha256');
 
+class Transaction{
+  constructor(fromAddress, toAddress, amount) {
+    this.fromAddress = fromAddress;
+    this.toAddress = toAddress;
+    this.amount = amount;
+  }
+}
+
+
 class myBlock{
-  constructor(index, timestamp, data, previousHash = ''){
-    this.index = index;
+  constructor(timestamp, transaction, previousHash = ''){
     this.timestamp = timestamp;
-    this.data = data;
+    this.transaction = transaction;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
     this.nonce = 0;
   }
 
   calculateHash(){
-    return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
+    return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.transaction) + this.nonce).toString();
   }
 
   mineBlock(difficulty){
@@ -27,15 +35,29 @@ class myBlock{
 class Blockchain {
   constructor() {
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 2;
+    this.pendingTransaction = [];
+    this.miningReward = 100;
   }
 
   createGenesisBlock(){
-    return new myBlock(0, '11/18/2018', 'Genesis block', '0');
+    return new myBlock('11/18/2018', 'Genesis block', '0');
   }
 
   getLatestBlock(){
     return this.chain[this.chain.length - 1];
+  }
+
+  minePendingTransaction(miningRewardAddress){
+    let block = new myBlock(Date.now(), this.pendingTransaction);
+    block.mineBlock(this.difficulty);
+
+    console.log('Block successfully mined!');
+    this.chain.push(block);
+
+    this.pendingTransactions = [
+      new Transaction(null, miningRewardAddress, this.miningReward)
+    ];
   }
 
   addBlock(newBlock){
